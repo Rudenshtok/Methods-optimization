@@ -1,0 +1,139 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage[russian]{babel}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+ 
+\renewcommand\lstlistingname{Algorithm}
+\renewcommand\lstlistlistingname{Algorithms}
+\def\lstlistingautorefname{Alg.}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines, 
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\NetIDa{Rudenko Varvara}           % <-- NetID of person #1
+
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+\section{General optimization problems}
+
+\subsection*{Задача №1}
+$\textbf{Give an explicit solution of the following LP.}$
+$$ 
+\begin{aligned}
+&c^Tx\rightarrow min_{x\in \mathbb{R}^n}\\ 
+&\text{s.t.}\ Ax=b
+\end{aligned}
+$$
+Лагранжиан этой задачи:
+$$ L(x,\lambda)=c^Tx+\lambda^T(Ax-b)$$
+Задача выпуклая (линейная, ограничения афинные).
+Условия Каруша-Куна-Таккера:
+$$ 
+\begin{aligned}
+&\bigtriangledown_x L: c+A^T\lambda=0\\ 
+&\bigtriangledown_\lambda L: Ax=b
+\end{aligned}
+$$
+Тогда можно говорить о двух случаях для $Ax=b$:
+\begin{itemize}
+	\item[1. ] Нет решения => бюджетное множество пустое, оптимальное значение $p^*=\infty$
+	\item[2. ] Решение есть. Можно записать его через псевдообратную матрицу- $x^*=A^\dagger b$, выполнены условия Слейтера => по ККТ получили оптимальное решение $x^*$ и значение $p^*=c^T A^\dagger b$
+\end{itemize}
+
+
+
+\subsection*{Задача №2}
+$\textbf{Give an explicit solution of the following LP.}$
+$$ 
+\begin{aligned}
+&c^Tx\rightarrow min_{x\in \mathbb{R}^n}\\ 
+&\text{s.t.}\ 1^Tx=1\\
+&x\succcurlyeq0
+\end{aligned}
+$$
+Лагранжиан этой задачи:
+$$ L(x,\lambda,\mu)=c^T x+\lambda(1^T x-1)-\mu^T x  $$
+Задача выпуклая, так как линейная, условия линейные, выполняются условия Слейтера (существует допустимая точка, все компоненты $x =\frac{1}{n}$). Тогда получаем достаточные ККТ:
+$$
+\begin{aligned}
+&\bigtriangledown_x L: c+\lambda\times1^T-\mu=0\\ 
+&\bigtriangledown_\lambda L: 1^Tx=1\\
+&\mu_j\geq,\ j=[1,n]\\
+&\mu_j x_j=0,\ j=[1,n]\\
+&x\succeq0
+\end{aligned}
+$$ 
+Выбираем вектор c, где на месте минимальной компоненты $c_i$ у $x^*=(0,0,...,1,0,...,0)$ стоит 1. => $\lambda^*=-c_i,\ \mu^*_i=0, \mu_j=c_j-c_i\geq0$.\\
+$x^*, \mu^*, \lambda^*$ - решение системы, так как выполнено ККТ, $x^*$ - решение задачи => оптимальное значение $p^*=c_i$
+
+
+\subsection*{Задача №3}
+$\textbf{Give an explicit solution of the following LP.}$
+$$ 
+\begin{aligned}
+&c^Tx\rightarrow min_{x\in \mathbb{R}^n}\\ 
+&\text{s.t.}\ 1^Tx=\alpha\\
+&0\curlyeqprec x\curlyeqprec1
+\end{aligned}
+$$
+
+
+\subsection*{Задача №4}
+$\textbf{Give an explicit solution of the following QP.}$
+$$ 
+\begin{aligned}
+&c^Tx\rightarrow min_{x\in \mathbb{R}^n}\\ 
+&x^TAx\leqslant1
+\end{aligned}
+$$
+
+\subsection*{Задача №5}
+\subsection*{Задача №6}
+\subsection*{Задача №7}
+\subsection*{Задача №8}
+\subsection*{Задача №9}
+
+\section{Duality}
+\subsection*{Задача №1}
+\subsection*{Задача №2}
+\subsection*{Задача №3}
+\subsection*{Задача №4}
+
+
+\end{document}
