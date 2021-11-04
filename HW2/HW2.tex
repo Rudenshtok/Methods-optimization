@@ -433,7 +433,28 @@ $$\begin{aligned}
 &-\sum^{m}_{i=1}log(b_i-a^T_ix) \rightarrow \min _{x \in \mathbb{R}^n}
 \end{aligned} $$
 with domain \(\{x \mid a^\top_i x < b_i , i = [1,m]\}\).\\
-First introduce new variables \(y_i\) and equality constraints \(y_i = b_i-a^\top_i x\). (The solution of this problem is called the analytic center of the linear inequalities \(a^\top_i x \leq b_i ,i = [1,m]\). Analytic centers have geometric applications, and play an important role in barrier methods.)
+First introduce new variables \(y_i\) and equality constraints \(y_i = b_i-a^\top_i x\). (The solution of this problem is called the analytic center of the linear inequalities \(a^\top_i x \leq b_i ,i = [1,m]\). Analytic centers have geometric applications, and play an important role in barrier methods.)\\
 
+Делаем замену переменных: \(y_i = b_i-a^\top_i x\) ($y_i>0$) или $y=b-Ax,\ A\in\mathbb{R}^{nxm}.$ Тогда исходная задача:
+$$\begin{aligned}
+-&\sum^{m}_{i=1}log\ y_i\rightarrow \min\\
+&y=b-Ax
+\end{aligned} $$
+Лагранжиан этой задачи:
+$$L(x,y,\lambda)=-\sum^{m}_{i=1}log\ y_i+{\lambda}^T(y+Ax-b)$$
+По определению двойственная функция:
+$$g(\lambda)={inf}_{x,y}(-\sum^{m}_{i=1}log\ y_i+{\lambda}^T(y+Ax-b))$$
+$A^T\lambda=0,$ иначе можно взять $x=-\infty$. Тогда область определения: $A^T\lambda=0,\ \lambda\succ0$ Ищем минимум => приравниваем градиент к нулю:
+$$\sum^{m}_{i=1}\frac{1}{y_i}\geqslant0\ => y_i=\frac{1}{{\lambda}_i}$$
+Двойственная функция:
+$$g(\mu)=\left\{\begin{array}{l}
+\sum\limits_{i=1}^{m} \log \lambda_{i}+m-\lambda^{\top} b, \quad A^{\top} \lambda=0, \; \lambda \succ 0  \\
+-\infty, else
+\end{array}\right.$$
+=>
+$$\begin{aligned}
+&\sum\limits_{i=1}^{m} \log \left(\lambda_{i}\right)+m-\lambda^{\top} b \rightarrow \max\limits _{\lambda} \\
+&s.t.\ \quad A^{T} \lambda=0, \quad \lambda \succ 0
+\end{aligned}$$
 
 \end{document}
