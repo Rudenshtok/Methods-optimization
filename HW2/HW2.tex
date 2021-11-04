@@ -35,7 +35,7 @@
 \setlength{\parskip}{0.05in}
 
 % Edit these as appropriate
-\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\hwnumber{2}                  % <-- homework number
 \newcommand\NetIDa{Rudenko Varvara}           % <-- NetID of person #1
 
 
@@ -334,9 +334,106 @@ $$\nabla f_{0}\left(x^{*}\right)^{\top}\left(x-x^{*}\right) \geq 0$$
 \newpage
 \section{Duality}
 \subsection*{Задача №1}
+$\textbf{Fenchel + Lagrange =}\  \heartsuit\ \textbf{Express the dual problem of}$ 
+$$\begin{aligned}
+&c^Tx \rightarrow \min _{x \in \mathbb{R}} \\
+&s.t.\ f(x) \leq 0
+\end{aligned} $$
+with \(c \neq 0\), in terms of the conjugate function \(f^*\). Explain why the problem you give is convex. We do not assume \(f\) is convex.
+
+Лагранжиан этой задачи:
+$$L(x,\lambda)=c^Tx+{\lambda}^Tf(x)$$
+Рассматриваем для различных значений $\lambda:$
+\begin{itemize}
+	\item[1.] $\lambda=0 => g(\lambda)=inf\ c^Tx=-\infty$
+	\item[2.] $\lambda>0 =>$ Двойственная задача по определению: 
+	$$g(\lambda)=inf(c^Tx+\lambda\ f(x))=\lambda\ inf ({(\frac{c}{\lambda})}^Tx+\lambda f(x))=-\lambda\ f^*(-\frac{c}{\lambda})$$
+\end{itemize}
+Тогда для $\forall\lambda\geqslant0,\ -\frac{c}{\lambda}\in dom\ f^*:$
+$$\begin{aligned}
+&-\lambda\ f^*(-\frac{c}{\lambda}) \rightarrow \min _{x \in \mathbb{R}} \\
+&s.t.\ \lambda\geqslant0
+\end{aligned} $$
+
 \subsection*{Задача №2}
+$\textbf{Minimum volume covering ellipsoid. Let we have the primal problem:}$
+$$\begin{aligned}
+&ln\ detX^{-1} \rightarrow \min _{x \in \mathbb{S}^n_{++}} \\
+&s.t.\ a^T_iXa_i \leq 1,\ i=1,..,m
+\end{aligned} $$
+\begin{itemize}
+	\item[a.] Find Lagrangian of the primal problem
+	\item[b.] Find the dual function
+	\item[c.] Write down the dual problem
+	\item[d.] Check whether problem holds strong duality or not
+	\item[e.] Write down the solution of the dual problem
+\end{itemize}
+
+Задача представляется как центрированный в начале координат эллипсоид => задача заключается в определении минимального объема.\\  
+Ограничения неравенства аффины => можно переписать в виде:
+$$tr((a_ia^T_i)X)\leqslant1 $$
+Лагранжиан этой задачи:
+$$L(x,\lambda)=ln\ detX^{-1}+\sum_{i=1}^{\mathrm{m}} \lambda_{\mathrm{i}}\left(\mathrm{a}_{\mathrm{i}}^{\mathrm{T}} \mathrm{Xa}_{\mathrm{i}}-1\right)$$
+Запишем через сопряженную функцию, которую уже решали в первом задании ($dom\ f^*=-\mathbb{S}^n_{++}$):
+$$f^{*}(Y)=\log \operatorname{det}(-Y)^{-1}-n $$
+
+$$\begin{pmatrix}
+\text{Общий случай для нахождения двойственной функции через сопряженную:}\\ 
+\\
+minimize\ f_0(x)\\ 
+s.t.\ \begin{aligned} &Ax\preceq b\\ 
+&Cx=d\end{aligned} \\ 
+\operatorname{dom} g=\left\{(\lambda, \nu) \mid-A^{T} \lambda-C^{T} \nu \in \operatorname{dom} f^{*}_0\right\}\\
+\\
+\begin{aligned}
+g(\lambda, \nu) &=\inf _{x}\left(f_{0}(x)+\lambda^{T}(A x-b)+\nu^{T}(C x-d)\right) \\
+&=-b^{T} \lambda-d^{T} \nu+\inf _{x}\left(f_{0}(x)+\left(A^{T} \lambda+C^{T} \nu\right)^{T} x\right) \\
+&=-b^{T} \lambda-d^{T} \nu-f_{0}^{*}\left(-A^{T} \lambda-C^{T} \nu\right)
+\end{aligned}
+
+\end{pmatrix}$$
+
+Тогда двойственная в данной задаче ($b=1^T,\ A=a_ia^T_i$):
+$$g(\lambda)=\left\{\begin{array}{ll}
+\log \operatorname{det}\left(\sum_{i=1}^{m} \lambda_{i} a_{i} a_{i}^{T}\right)-\mathbf{1}^{T} \lambda+n, & \sum_{i=1}^{m} \lambda_{i} a_{i} a_{i}^{T} \succ 0 \\
+-\infty, & \text { else }
+\end{array}\right. $$
+=>
+$$\begin{array}{ll}
+\operatorname{maximize} & \log \operatorname{det}\left(\sum_{i=1}^{m} \lambda_{i} a_{i} a_{i}^{T}\right)-\mathbf{1}^{T} \lambda+n \\
+\text { s.t. } & \lambda \succeq 0
+\end{array}$$
+Есть сильная двойственность = выполняется условие Слейтера ($\exists X \in \mathbf{S}_{++}^{n}:$ $a_{i}^{T} X a_{i} < 1,\ i=1, \ldots, m$)
+
 \subsection*{Задача №3}
+$\textbf{A penalty method for equality constraints. We consider the problem of minimization}$
+$$\begin{aligned}
+&f_0(x) \rightarrow \min _{x \in \mathbb{R}^n} \\
+&s.t.\ Ax=b
+\end{aligned} $$
+where \(f_0(x): \mathbb{R}^n \to\mathbb{R}\) is convex and differentiable, and \(\alpha \in \mathbb{R}^{m \times n}\) with \(\mathbf{rank }A = m\). In a quadratic penalty method, we form an auxiliary function
+$$\phi(x)=f_0(x)+\alpha{\parallel Ax-b\parallel}^2_2$$
+where \(\alpha > 0\) is a parameter. This auxiliary function consists of the objective plus the penalty term \(\alpha \|Ax - b\|_2^2\). The idea is that a minimizer of the auxiliary function, \(\tilde{x}\), should be an approximate solution of the original problem. Intuition suggests that the larger the penalty weight \(\alpha\), the better the approximation \(\tilde{x}\) to a solution of the original problem. Suppose \(\tilde{x}\) is a minimizer of \(\phi(x)\). Show how to find, from \(\tilde{x}\), a dual feasible point for the original problem. Find the corresponding lower bound on the optimal value of the original problem.\\
+
+Лагранжиан этой задачи:
+$$L(x,\lambda)=f_0(x)+{\lambda}^T(Ax-b)$$
+Если в \(\tilde{x}\) минимальное $\phi(x)$ => по необходимому условию экстремума:
+$$\nabla\phi(\tilde{x})=0\ =>\ \nabla f_0(x)+2\alpha A^T(A\tilde{x}-b)=0$$
+Выражаем из $\nabla\phi=0 \rightarrow \lambda:$
+$$\lambda=2\alpha(A\tilde{x}-b)$$
+Тогда двойственная:
+$$g(\lambda)={inf}_x\ (f_0(x)+{\lambda}^T(Ax-b))=f_0(\tilde{x})+2\alpha{\parallel A\tilde{x}-b\parallel}^2_2$$
+$=> \forall x, Ax=b:$
+$$f_0(x)\geqslant f_0(\tilde{x})+2\alpha{\parallel A\tilde{x}-b\parallel}^2_2$$
+
+
 \subsection*{Задача №4}
+$\textbf{Analytic centering. Derive a dual problem for}$
+$$\begin{aligned}
+&-\sum^{m}_{i=1}log(b_i-a^T_ix) \rightarrow \min _{x \in \mathbb{R}^n}
+\end{aligned} $$
+with domain \(\{x \mid a^\top_i x < b_i , i = [1,m]\}\).\\
+First introduce new variables \(y_i\) and equality constraints \(y_i = b_i-a^\top_i x\). (The solution of this problem is called the analytic center of the linear inequalities \(a^\top_i x \leq b_i ,i = [1,m]\). Analytic centers have geometric applications, and play an important role in barrier methods.)
 
 
 \end{document}
